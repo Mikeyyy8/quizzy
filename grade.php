@@ -33,9 +33,14 @@ mysqli_close($connect);
 <body id="grade">
     <div class="grade_container">        
         <h1>Quiz Results</h1>
-        <p>You scored <?php echo $_SESSION["score"] . "/" . $total_questions; ?></p>
-        <p><?php echo round($percentage, 2) . "%"; ?></p>
+        <p>Your Score: <?php echo $_SESSION["score"] . "/" . $total_questions; ?></p>
+        <p>Percentage: <?php echo round($percentage, 2) . "%"; ?></p>
         <?php unset($_SESSION['current_question'], $_SESSION["score"], $_SESSION["quiz_id"], $_SESSION["total_questions"], $_SESSION["ongoing"]); ?>
-        <a href="index.php">Back to Home</a>
+
+        <div class="navigation-links">
+          <a href="index.php">Back to Home</a>
+          <a href="leaderboard.php">View Leaderboard</a>
+        </div>
     </div>
 </body>
+</html>
