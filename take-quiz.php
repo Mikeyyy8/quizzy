@@ -72,13 +72,17 @@ $timeLimit = $total_questions * 1.5;
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    const quizDurationMinutes = <?php echo $timeLimit; ?>;
+  </script>
+  <script defer src="timer.js"></script>
 </head>
 
 <body id="take-quiz">
     <form method="post" style="<?php if($_SESSION["ongoing"] == true) : ?> display: none; <?php endif;  ?>">
         <!-- home  -->
          <div class="home">
-            <a href="index.php" class="home">Go back</a>
+            <a href="available-quizzes.php" class="home">Go back</a>
          </div>
         <div class="quiz-information">
             <p style="display: none;"><?php echo $quiz["quiz_id"]; ?></p>
@@ -104,8 +108,8 @@ $timeLimit = $total_questions * 1.5;
     </form>
 
     <?php if(isset($_POST["start-quiz"]) || is_bool($_SESSION["ongoing"])) : ?>
-        <div id="timer">Timer: <?php echo $timeLimit; ?></div>
-        <form action="result.php" method="POST">
+        <div id="timer"><?php echo $timeLimit; ?></div>
+        <form action="result.php" method="POST" id="quiz-form">
             <div class="take-quiz-container">
                 <p style="display: none;"><?php echo $question['id']; ?></p>
                 <h4 class="question">Question <?php echo $index["question_number"] . " of " . $total_questions; ?></h4>
@@ -129,6 +133,5 @@ $timeLimit = $total_questions * 1.5;
             </div>
         </form>
     <?php endif; ?>
-
 </body>
 </html> 

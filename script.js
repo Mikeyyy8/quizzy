@@ -1,30 +1,25 @@
-// const expand_btn = document.querySelector(".expand-btn");
+document.addEventListener('DOMContentLoaded', function () {
+const courseSelect = document.getElementById('filter');
 
-let activeIndex;
+// Function to fetch and populate course options
+function populateCourses() {
+  fetch('./api/courses.php')
+    .then(response => response.json())
+    .then(courses => {
+        courses.forEach(course => {
+            const option = document.createElement('option');
+            option.value = course;
+            option.textContent = course;
+            courseSelect.appendChild(option);
+        });
+    })
+      .catch(error => console.error('Error fetching courses:', error));
+  }
+  
+  populateCourses();
 
-expand_btn.addEventListener("click", () => {
-  document.body.classList.toggle("collapsed");
-});
-
-const current = window.location.href;
-
-const allLinks = document.querySelectorAll(".sidebar-links a");
-
-allLinks.forEach((elem) => {
-  elem.addEventListener("click", function () {
-    const hrefLinkClick = elem.href;
-
-    allLinks.forEach((link) => {
-      if (link.href == hrefLinkClick) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
+  // Add event listener for course selection
+  courseSelect.addEventListener('change', function () {
+      fetchAndRenderChart(this.value);
   });
 });
-
-function hidePage(params) {
-  
-}
-
